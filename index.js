@@ -72,20 +72,20 @@
 // console.log(isPangramRegex("JavaScript RegExp g Modifier"));
 
 // - - - - - - - - - - - map() - filter() - reduce() - - - - - - - - - -
-const nums = [1, 2, 3, 4, 5];
-console.log(nums);
+// const nums = [1, 2, 3, 4, 5];
+// console.log(nums);
 
-const numsAddOne = nums.map((value) => value + 1);
-console.log(numsAddOne);
+// const numsAddOne = nums.map((value) => value + 1);
+// console.log(numsAddOne);
 
-const evenNums = nums.filter((value) => value % 2 === 0);
-console.log(evenNums);
+// const evenNums = nums.filter((value) => value % 2 === 0);
+// console.log(evenNums);
 
-// deep understanding of reduce()
-const sum = nums.reduce((accumulator, currentValue) => {
-  return accumulator + currentValue;
-}); // when no provided, first iteration will be between 1st and 2nd elements of array (4 iterations total)
-console.log(sum); // result 15, in this case is same result as adding initialValue of 0
+// // deep understanding of reduce()
+// const sum = nums.reduce((accumulator, currentValue) => {
+//   return accumulator + currentValue;
+// }); // when no provided, first iteration will be between 1st and 2nd elements of array (4 iterations total)
+// console.log(sum); // result 15, in this case is same result as adding initialValue of 0
 
 // const sum = nums.reduce((accumulator, currentValue) => {
 //    accumulator++
@@ -94,52 +94,90 @@ console.log(sum); // result 15, in this case is same result as adding initialVal
 // console.log(sum); // result 20
 
 // resolving map() and filter() excercise with reduce()
-const addOneEven = nums.reduce((accumulator, currentValue) => {
-  currentValue++;
-  if (currentValue % 2 === 0) {
-    accumulator.push(currentValue);
-  }
-  return accumulator;
-}, []); // initialValue
-console.log(addOneEven);
+// const addOneEven = nums.reduce((accumulator, currentValue) => {
+//   currentValue++;
+//   if (currentValue % 2 === 0) {
+//     accumulator.push(currentValue);
+//   }
+//   return accumulator;
+// }, []); // initialValue
+// console.log(addOneEven);
 
-// indexing with reduce()
-const pets = [
-  { nick: "Pelusa", age: 5, kind: "cat" },
-  { nick: "Alberto", age: 6, kind: "dog" },
-  { nick: "Solovino", age: 10, kind: "turtle" },
-];
+// // indexing with reduce()
+// const pets = [
+//   { nick: "Pelusa", age: 5, kind: "cat" },
+//   { nick: "Alberto", age: 6, kind: "dog" },
+//   { nick: "Solovino", age: 10, kind: "turtle" },
+// ];
 
-const indexed = pets.reduce(
-  (acc, el) => ({
-    ...acc,
-    [el.nick]: el,
-  }), {});
-console.log(indexed);
-console.log(indexed["Pelusa"]);
+// const indexed = pets.reduce(
+//   (acc, el) => ({
+//     ...acc,
+//     [el.nick]: el,
+//   }), {});
+// console.log(indexed);
+// console.log(indexed["Pelusa"]);
 
-// conver nested to flat arrays
-const nestedArr = [1, [2, 3], 4, [5]];
-const flatArr = nestedArr.reduce((acc, el) => acc.concat(el), []);
-console.log(flatArr);
+// // conver nested to flat arrays
+// const nestedArr = [1, [2, 3], 4, [5]];
+// const flatArr = nestedArr.reduce((acc, el) => acc.concat(el), []);
+// console.log(flatArr);
 
 // - - - - - - - - - Destructuring Objects and Arrays ES6- - - - - - - - - -
-const dob = [10, 12, 1987];
-const [day, month, year] = dob;
+// const dob = [10, 12, 1987];
+// const [day, month, year] = dob;
 
-console.log(year);
+// console.log(year);
 
-const user = {
-  f: "Dylan",
-  l: "Camacho",
+// const user = {
+//   f: "Dylan",
+//   l: "Camacho",
+// };
+
+// const { f: firstName, l: lastName } = user;
+// console.log(firstName, lastName);
+
+// // number extra of comas = number of elements avoided
+// const [greeting,, color,, type] = ["Hey", "yes", "blue", "apple", "array"];
+// console.log(greeting);
+// console.log(color);
+// console.log(type);
+
+// - - - - - - - - - - API array methods - - - - - - - - - - -
+
+// my solution, array methods are ok, but can't invoke what the function returns in a console.log bc response is asynchronous
+// function getUsers() {
+//   fetch("https://jsonplaceholder.typicode.com/users")
+//     .then((res) => res.json())
+//     .then((data) => {
+//       const resultArr = data
+//         .filter((el) => el.name.match(/[k]/i))
+//         .map((el) => {
+//           return { name: el.name, email: el.email };
+//         });
+//       console.log(resultArr);
+//       // return resultArr;
+//     });
+// }
+// getUsers();
+
+// scrimba solution, with IIFE (inmedialty invoked function expression)
+const getUsers = async () => {
+  const api = "https://jsonplaceholder.typicode.com/users";
+  const response = await fetch(api);
+  const json = await response.json();
+
+  const result = json
+    .filter((v) => v.name.toLowerCase().includes("k"))
+    .map(({ name, email }) => ({ name, email }));
+
+  return result;
 };
-
-const { f: firstName, l: lastName } = user;
-console.log(firstName, lastName);
-
-// number extra of comas = number of elements avoided
-const [greeting,, color,, type] = ["Hey", "yes", "blue", "apple", "array"];
-console.log(greeting);
-console.log(color);
-console.log(type);
-
+// IIFE
+(async function () {
+  try {
+    console.log(await getUsers());
+  } catch (err) {
+    console.log(err);
+  }
+})(); // this way function can be invoked
