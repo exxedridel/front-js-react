@@ -159,25 +159,82 @@
 //       // return resultArr;
 //     });
 // }
-// getUsers();
+// getUsers(); //needs a anonymopus function in order to console since fetch is async like below
 
 // scrimba solution, with IIFE (inmedialty invoked function expression)
-const getUsers = async () => {
-  const api = "https://jsonplaceholder.typicode.com/users";
-  const response = await fetch(api);
-  const json = await response.json();
+// const getUsers = async () => {
+//   const api = "https://jsonplaceholder.typicode.com/users";
+//   const response = await fetch(api);
+//   const json = await response.json();
 
-  const result = json
-    .filter((v) => v.name.toLowerCase().includes("k"))
-    .map(({ name, email }) => ({ name, email }));
+//   const result = json
+//     .filter((v) => v.name.toLowerCase().includes("k"))
+//     .map(({ name, email }) => ({ name, email }));
 
-  return result;
-};
-// IIFE
-(async function () {
-  try {
-    console.log(await getUsers());
-  } catch (err) {
-    console.log(err);
-  }
-})(); // this way function can be invoked
+//   return result;
+// };
+// // IIFE
+// (async function () {
+//   try {
+//     console.log(await getUsers());
+//   } catch (err) {
+//     console.log(err);
+//   }
+// })(); // this way function can be invoked
+
+// - - - - - - - Excercise rain language translator - - - - - - - -
+
+// My solution
+// function toRainLanguage(integrer) {
+//   const resultArr = []
+//   if (integrer % 3 === 0) {
+//     resultArr.push("Pling")
+//   }
+//   if (integrer % 5 === 0) {
+//     resultArr.push("Plang")
+//   }
+//   if (integrer % 7 === 0) {
+//     resultArr.push("Plong")
+//   }
+//   if (resultArr == false) {
+//     resultArr.push(integrer) // Mine prints out a string, so is not enterily complete
+//   }
+//   return resultArr.join("")
+// }
+// console.log(toRainLanguage(105));
+// console.log(toRainLanguage(2));
+
+// Scrimba solution: Dimitri Ivashchuk
+// const toRainLanguage2 = (number)=>{
+//   let result = ''
+//   if(number%3===0) result += "Pling"
+//   if(number%5===0) result += "Plang"
+//   if(number%7===0) result += "Plong"
+
+//   return result || number //this xd
+//   //return result ? result : number //same as this
+// }
+// console.log(toRainLanguage2(105))
+// console.log(toRainLanguage2(2))
+
+// - - - - - - - - Isogram check function - - - - - - - - - -
+
+// My solution
+// function isIsogram(string) {
+//   const LowerCasedArr = string.toLowerCase().split("");
+//   result = LowerCasedArr.filter((value, index, self) => self.indexOf(value) === index);
+//   return result.length === string.length
+//   // return result.length === string.length ? true : false //same as this
+// }
+// console.log(isIsogram("ambidExtRously")); // true
+// console.log(isIsogram("patteRN")); // false
+
+// Scrimba solution: Dimitri Ivashchuk
+// const isIsogram = (string) => {
+//   const lowerCased = string.toLowerCase();
+//   const result = lowerCased.split("").every((v, i) => lowerCased.indexOf(v) === i);
+//   // every returns true if every iteration is satisfied, false if not
+//   return result;
+// };
+// console.log(isIsogram("ambidExtRously")); // true
+// console.log(isIsogram("patteRN")); // false
