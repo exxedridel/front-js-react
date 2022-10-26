@@ -90,7 +90,7 @@
 // const sum = nums.reduce((accumulator, currentValue) => {
 //    accumulator++
 //   return accumulator + currentValue;
-// }, 0); // when initialValue provided first iteration will be beeteen initialValue and currentValue (5 iterations total)
+// }, 0); // when initialValue provided first iteration will be between initialValue and currentValue (5 iterations total)
 // console.log(sum); // result 20
 
 // resolving map() and filter() excercise with reduce()
@@ -284,12 +284,41 @@
 
 // - - - - - - - - Encoding / Decoding fucntion with replace() - - - - - - - -
 
-const encode = (string) => {
-  return string.replace(/(\w)\1+/g, (m, v) => `${m.length}${v}`);
-};
+// const encode = (string) => {
+//   return string.replace(/(\w)\1+/g, (m, v) => `${m.length}${v}`);
+// };
 
-const decode = (string) => {
-  return string.replace(/(\d+)(\w)/g, (x, y, z) => z.repeat(y));
+// const decode = (string) => {
+//   return string.replace(/(\d+)(\w)/g, (x, y, z) => z.repeat(y));
+// };
+// console.log(encode("wwwwwwwwiiuuuu")); // 3w2i4u
+// console.log(decode("2u3a4o")); // uuaaaoooo
+
+// - - - - - - - - - removeDuplicateValues() with .reduce() - - - - - - - - - -
+
+// My solution
+// const removeDuplicateValues = (stringsArr) => {
+//   // pseudo code: If current value is not on accumulator push current value to accumulator
+//   // but, to simplify code will just compare for unique indexes with the self array using indexOf()
+//   return stringsArr.reduce((acc, value, index, self) => {
+//     if (self.indexOf(value) == index) {
+//       acc.push(value);
+//     }
+//     return acc;
+//   }, []);
+// };
+
+// console.log(
+//   removeDuplicateValues(["one", "two", "one", "three", "three", "two"])
+// ); // ['one', 'two', 'three']
+
+// Scrimba's: Dimitri Ivashchuk
+// Actually, using my first aproach with .includes(), ternary and spread operators 😲👍
+const removeDuplicateValues = (array) => {
+  return array.reduce((accumulator, value) => {
+    return accumulator.includes(value) ? accumulator : [...accumulator, value];
+  }, []);
 };
-console.log(encode("wwwwwwwwiiuuuu")); // 3w2i4u
-console.log(decode("2u3a4o")); // uuaaaoooo
+console.log(
+  removeDuplicateValues(["one", "two", "one", "three", "three", "two"])
+); // ['one','two','three']
