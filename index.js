@@ -238,3 +238,58 @@
 // };
 // console.log(isIsogram("ambidExtRously")); // true
 // console.log(isIsogram("patteRN")); // false
+
+// - - - - - - - - - Leap-year check function - - - - - - - - -
+
+// My solution
+// function isLeapYear(string) {
+//   if (string % 4 == 0 && string % 100 != 0) {
+//     return true;
+//   } else if (string % 4 == 0 && string % 100 == 0) {
+//     if (string % 400 == 0) {
+//       return true
+//     } else {
+//       return false
+//     }
+//   } else {
+//     return false
+//   }
+// }
+
+// Scrimba solution: Dimitri Ivashchuk (using ternary - truthy n falsy)
+// const isLeapYear = (year) => {
+//   const numberYear = Number(year)
+//   return numberYear % 100 === 0 ? numberYear % 400 === 0 : numberYear % 4 === 0
+// }
+
+// Mixing approaches (Scrimba's is better but just for understandment)
+// function isLeapYear(year) {
+//   if (year % 100 === 0) {
+//     if (year % 400 === 0) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   } else if (year % 4 === 0) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+// console.log(isLeapYear("2020")); // true
+// console.log(isLeapYear("2018")); // false
+// console.log(isLeapYear("1700")); // false
+// console.log(isLeapYear("1600")); // true
+
+// - - - - - - - - Encoding / Decoding fucntion with replace() - - - - - - - -
+
+const encode = (string) => {
+  return string.replace(/(\w)\1+/g, (m, v) => `${m.length}${v}`);
+};
+
+const decode = (string) => {
+  return string.replace(/(\d+)(\w)/g, (x, y, z) => z.repeat(y));
+};
+console.log(encode("wwwwwwwwiiuuuu")); // 3w2i4u
+console.log(decode("2u3a4o")); // uuaaaoooo
