@@ -118,7 +118,7 @@
 // console.log(indexed);
 // console.log(indexed["Pelusa"]);
 
-// // conver nested to flat arrays
+// conver nested to flat arrays
 // const nestedArr = [1, [2, 3], 4, [5]];
 // const flatArr = nestedArr.reduce((acc, el) => acc.concat(el), []);
 // console.log(flatArr);
@@ -314,11 +314,53 @@
 
 // Scrimba's: Dimitri Ivashchuk
 // Actually, using my first aproach with .includes(), ternary and spread operators 😲👍
-const removeDuplicateValues = (array) => {
-  return array.reduce((accumulator, value) => {
-    return accumulator.includes(value) ? accumulator : [...accumulator, value];
-  }, []);
-};
-console.log(
-  removeDuplicateValues(["one", "two", "one", "three", "three", "two"])
-); // ['one','two','three']
+// const removeDuplicateValues = (array) => {
+//   return array.reduce((accumulator, value) => {
+//     return accumulator.includes(value) ? accumulator : [...accumulator, value];
+//   }, []);
+// };
+// console.log(
+//   removeDuplicateValues(["one", "two", "one", "three", "three", "two"])
+// ); // ['one','two','three']
+
+// - - - - - - - - Emulate .map() passing callback with reduce() - - - - - - - - -
+
+// My solution, same as Scrimba 
+// const map = (array, callback) => {
+//   return array.reduce((acc, value) => {
+//     return [...acc, callback(value)]
+//   }, [])
+// }
+// // val its gonna be the same as iterated value when passed to callback inside the reduce
+// console.log(map([1, 2, 3], (val) => val + 1)); // [2, 3, 4]
+
+// - - - - - - - - - Flatten with reduce() - - - - - - - - - - - -
+
+// My solution : lacks to check for array inside arrays
+// const makeFlat = (nestedArr) => {
+//   return nestedArr.reduce((acc, value) => {
+//     return acc.concat(value)
+//   },[])
+// }
+// console.log(makeFlat(["one", ["two", "three"], ["four", ["five"]]])); // ['one','two','three','four','five']
+
+// Scrimba's: using Array.isArray() and recursiveness
+// const makeFlat = (array) => {
+//   return array.reduce((accumulator,value)=>{
+//       return Array.isArray(value) ? [...accumulator, ...makeFlat(value)] : [...accumulator,value]
+//   },[])
+// }
+// console.log(makeFlat(["one", ["two", "three"], ["four", ["five"]]])); // ['one','two','three','four','five']
+
+// - - - - - - - - - - - - Transpose matrix - - - - - - - - - - - - -
+
+const transposeMatrix = (array) => {
+  return array[0].map((_,i)=>array.map(v=>v[i]))
+}
+
+console.log(transposeMatrix([
+  [1,2,3],
+  [1,2,3],
+  [1,2,3],
+]))
+// [[1,1,1],[2,2,2],[3,3,3]]
