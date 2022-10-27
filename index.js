@@ -325,7 +325,7 @@
 
 // - - - - - - - - Emulate .map() passing callback with reduce() - - - - - - - - -
 
-// My solution, same as Scrimba 
+// My solution, same as Scrimba
 // const map = (array, callback) => {
 //   return array.reduce((acc, value) => {
 //     return [...acc, callback(value)]
@@ -355,12 +355,22 @@
 // - - - - - - - - - - - - Transpose matrix - - - - - - - - - - - - -
 
 const transposeMatrix = (array) => {
-  return array[0].map((_,i)=>array.map(v=>v[i]))
-}
+  // array[0].map() because want to iterate for the number of columns, thereby if numb of rows is not equal to columns it still work (3 iterations)
+  // then "_" stands for the column value that we wont use, only index is needed
+  // then over the callback fn we want to iterate over the values (4 iterations) taking only the same indexValue of each arrayValue: [1,1,1,1] ...etc
+  return array[0].map((_, i) => array.map((v) => v[i]))
+};
 
-console.log(transposeMatrix([
-  [1,2,3],
-  [1,2,3],
-  [1,2,3],
-]))
-// [[1,1,1],[2,2,2],[3,3,3]]
+console.log(
+  transposeMatrix([
+    [1, 2, 3],
+    [1, 2, 3],
+    [1, 2, 3],
+    [1, 2, 3],
+  ])
+);
+// [
+//   [1,1,1,1],
+//   [2,2,2,2],
+//   [3,3,3,3],
+// ]
